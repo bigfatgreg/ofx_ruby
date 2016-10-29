@@ -7,7 +7,8 @@ module OFX
       end
 
       def bank_account
-        BankAccount.new(name: :bankacctfrom, routing: @routing, account: @account)
+        BankAccount.new(name: :bankacctfrom, routing: @routing,
+                        account: @account)
       end
     
       def include_transactions
