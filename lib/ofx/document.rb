@@ -37,7 +37,9 @@ module OFX
         name: :bankmsgsrqv1,
         routing: routing,
         account: account,
-        id: trnuid
+        id: trnuid,
+        start: @start,
+        end: @end
       )
     end
 

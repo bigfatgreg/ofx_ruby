@@ -10,8 +10,6 @@ class OFX::DocumentTest
       @account = 48320949
       @inst = { org: 'fiorg', id: '32' }
       @app = { id: 'QBW', ver: '32' }
-      @start = (Date.today - 30).strftime('%Y%m%d%H%M%S')
-      @end = Date.today.strftime('%Y%m%d%H%M%S')
       @doc = OFX::Document.new(
         name: :ofx,
         user: @user,
@@ -21,7 +19,9 @@ class OFX::DocumentTest
         routing: @routing,
         account: @account,
         app_id: @app[:id],
-        app_ver: @app[:ver]
+        app_ver: @app[:ver],
+        start: Date.new(2015, 12, 28),
+        end: Date.new(2016, 1, 28)
       )
     end
     
@@ -134,7 +134,6 @@ class OFX::DocumentTest
     end
 
     it 'produces an ofx element group' do
-      byebug
       assert_equal  "OFXHEADER:100\n" \
                     "DATA:OFXSGML\n" \
                     "VERSION:103\n" \
@@ -169,8 +168,8 @@ class OFX::DocumentTest
                            "<ACCTTYPE>CHECKING</ACCTTYPE>" \
                          "</BANKACCTFROM>" \
                          "<INCTRAN>" \
-                           "<DTSTART>" + @start + "</DTSTART>" \
-                           "<DTEND>" + @end + "</DTEND>" \
+                           "<DTSTART>20151228000000</DTSTART>" \
+                           "<DTEND>20160128000000</DTEND>" \
                            "<INCLUDE>Y</INCLUDE>" \
                          "</INCTRAN>" \
                        "</STMTRQ>" \
