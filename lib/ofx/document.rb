@@ -14,6 +14,8 @@ module OFX
       @account = options[:account] || ENV['OFX_ACCOUNT']
       @app_id = options[:app_id] || ENV['OFX_APP_ID']
       @app_ver = options[:app_ver] || ENV['OFX_APP_VER']
+      @start = options[:start] || (Date.today - 30)
+      @end = options[:end] || Date.today
       super
     end
     

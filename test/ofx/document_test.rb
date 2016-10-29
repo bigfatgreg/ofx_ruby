@@ -134,6 +134,7 @@ class OFX::DocumentTest
     end
 
     it 'produces an ofx element group' do
+      byebug
       assert_equal  "OFXHEADER:100\n" \
                     "DATA:OFXSGML\n" \
                     "VERSION:103\n" \
