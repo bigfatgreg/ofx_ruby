@@ -18,6 +18,14 @@ module OFX
       @output[:transactions]
     end
 
+    def balance
+      @output[:balance].round(2)
+    end
+
+    def pending
+      @output[:pending].round(2)
+    end
+
     protected
 
     def dump

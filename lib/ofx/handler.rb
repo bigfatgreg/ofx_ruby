@@ -2,7 +2,8 @@
 module OFX
   class Handler < Ox::Sax
     TRANSACTION_ATTRS = [:TRNTYPE, :DTPOSTED, :TRNAMT, :FITID, :NAME]
-    ATTRS_MAP = { TRNTYPE: :as_s, DTPOSTED: :as_time,
+    BALANCE_ATTRS = [:BALAMT]
+    ATTRS_MAP = { TRNTYPE: :as_s, DTPOSTED: :as_time, BALAMT: :as_f,
                   TRNAMT: :as_f, FITID: :as_s, NAME: :as_s }
 
     def initialize(parser)
@@ -10,25 +11,40 @@ module OFX
     end                  
 
     def start_element(name)
-      @transaction = {} if name == :STMTTRN
-      @current_node = name
+      case name
+      when :STMTTRN then @transaction = {}
+      when :LEDGERBAL || :AVAILBAL then @balance = {}
+      end
+      @current = name
     end
 
     def value(value)
-      return unless TRANSACTION_ATTRS.include?(@current_node)
-      @transaction[@current_node] = value.send(ATTRS_MAP[@current_node])
+      case
+      when TRANSACTION_ATTRS.include?(@current)
+        @transaction[@current] = value.send(ATTRS_MAP[@current])
+      when BALANCE_ATTRS.include?(@current)
+        @balance[@current] = value.send(ATTRS_MAP[@current])
+      end
     end
 
     def end_element(name)
-      return unless name == :STMTTRN
-      @parser.output[:transactions] = [] if @parser.output[:transactions].nil?
-      @parser.output[:transactions].push(
-        type: @transaction[:TRNTYPE],
-        posted: @transaction[:DTPOSTED],
-        amount: @transaction[:TRNAMT],
-        fitid: @transaction[:FITID],
-        name: @transaction[:NAME]
-      )
+      case name
+      when :STMTTRN
+        @parser.output[:transactions] = [] unless @parser.output[:transactions]
+        @parser.output[:transactions].push(transaction(@transaction))
+      when :LEDGERBAL
+        @parser.output[:balance] = @balance[:BALAMT]
+      when :AVAILBAL
+        @parser.output[:pending] = @balance[:BALAMT] - @parser.output[:balance]
+      end
+    end
+    
+    protected
+    
+    def transaction(hash)
+      { type: @transaction[:TRNTYPE], posted: @transaction[:DTPOSTED],
+        amount: @transaction[:TRNAMT], fitid: @transaction[:FITID],
+        name: @transaction[:NAME] }
     end
   end
 end
