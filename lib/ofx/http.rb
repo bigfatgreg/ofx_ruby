@@ -13,8 +13,8 @@ module OFX
 
     def headers
       {
-        'Content-Type': 'application/x-ofx',
-        'Accept': '*/*, application/x-ofx'
+        'Content-Type' => 'application/x-ofx',
+        'Accept'=> '*/*, application/x-ofx'
       }
     end
 

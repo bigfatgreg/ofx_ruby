@@ -4,7 +4,7 @@ module OFX
     attr_reader :body
     attr_accessor :output
     
-    def initialize(body, options = {})
+    def initialize(body)
       @body = body
       @output = {}
       dump
