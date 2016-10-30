@@ -31,7 +31,7 @@ module OFX
       case name
       when :STMTTRN
         @parser.output[:transactions] = [] unless @parser.output[:transactions]
-        @parser.output[:transactions].push(transaction(@transaction))
+        @parser.output[:transactions].push(transaction)
       when :LEDGERBAL
         @parser.output[:balance] = @balance[:BALAMT]
       when :AVAILBAL
@@ -41,7 +41,7 @@ module OFX
     
     protected
     
-    def transaction(hash)
+    def transaction
       { type: @transaction[:TRNTYPE], posted: @transaction[:DTPOSTED],
         amount: @transaction[:TRNAMT], fitid: @transaction[:FITID],
         name: @transaction[:NAME] }

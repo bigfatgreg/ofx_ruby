@@ -5,17 +5,9 @@ module OFX
     attr_reader :uri
 
     def initialize(options = {})
-      @user = options[:user] || ENV['OFX_USER']
-      @password = options[:password] || ENV['OFX_PASSWORD']
-      @uri = options[:uri] || ENV['OFX_URI']
-      @fi_org = options[:fi_org] || ENV['OFX_FI_ORG']
-      @fi_fid = options[:fi_fid] || ENV['OFX_FI_FID']
-      @routing = options[:routing] || ENV['OFX_ROUTING']
-      @account = options[:account] || ENV['OFX_ACCOUNT']
-      @app_id = options[:app_id] || ENV['OFX_APP_ID']
-      @app_ver = options[:app_ver] || ENV['OFX_APP_VER']
       @start = options[:start] || (Date.today - 30)
       @end = options[:end] || Date.today
+      load_env(options)
       super
     end
     
@@ -44,6 +36,13 @@ module OFX
     end
 
     protected
+
+    def load_env(options)
+      ENV.keys.grep(/OFX/).map do |k|
+        ivar = k[/_([A-z]+)/, 1].downcase.to_sym
+        instance_variable_set("@#{ivar}", options[ivar] || ENV[k])
+      end
+    end
 
     def dtclient
       Time.now.strftime('%Y%m%d%H%M%S')
