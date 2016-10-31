@@ -30,7 +30,7 @@ module OFX::ParserTest
 
     it 'gets the balance and pending amounts' do
       assert_equal 17446.65, @parser.balance
-      assert_equal -92.09, @parser.pending
+      assert_equal (-92.09), @parser.pending
     end
   end
 end

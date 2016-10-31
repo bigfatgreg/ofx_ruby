@@ -17,11 +17,12 @@ module OFX::HTTPTest
     end
 
     it 'raises an error if a uri is not supplied' do
-      assert_raises OFX::Errors::URIMissing do
+      e = assert_raises OFX::Errors::URIMissing do
         ENV['OFX_URI'] = nil
         @http = OFX::HTTP.new
         @http.uri
       end
+      assert_match /You must specify the uri/, e.message
     end
 
     it 'it has a default http header' do
@@ -32,8 +33,8 @@ module OFX::HTTPTest
 
     it 'it has a default http header' do
       assert_equal @http.headers, {
-        'Content-Type': 'application/x-ofx',
-        'Accept': '*/*, application/x-ofx'
+        'Content-Type' => 'application/x-ofx',
+        'Accept' => '*/*, application/x-ofx'
       }
     end
   end

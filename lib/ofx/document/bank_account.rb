@@ -3,8 +3,8 @@ module OFX
   class Document
     class BankAccount < StatementRequest
       def initialize(options = {})
-        @routing = options[:routing] || (raise Errors::RoutingNumberMissing)
-        @account = options[:account] || (raise Errors::AccountNumberMissing)
+        @routing = options[:routing] || (raise Errors::RoutingMissing)
+        @account = options[:account] || (raise Errors::AccountMissing)
         @type = account_type(options[:type] || :checking)
         super
       end

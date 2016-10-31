@@ -1,0 +1,22 @@
+---
+build:
+  test:
+    image: graveflex/docker-ruby-2.3.1
+    when:
+      branch: master
+    commands:
+      - gem update bundler && bundle install
+      - CODECLIMATE_REPO_TOKEN='$$CODECLIMATE_REPO_TOKEN' OFX_USER='$$OFX_USER' OFX_PASSWORD='$$OFX_PASSWORD' OFX_URI='$$OFX_URI' OFX_ROUTING='$$OFX_ROUTING' OFX_ACCOUNT='$$OFX_ACCOUNT' OFX_FI_FID='$$OFX_FI_FID' OFX_FI_ORG='$$OFX_FI_ORG' OFX_APP_ID='$$OFX_APP_ID' OFX_APP_VER='$$OFX_APP_VER' rake test
+deploy:
+  rubygems:
+    api_key: $$RUBYGEMS_API_KEY
+    when:
+      event: tag
+notify:
+  slack:
+    channel: drone-testing
+    template: |
+      {{ build.author }} pushed `<{{ build.link_url }}|{{ truncate build.commit 7 }}: {{{ build.message }}}>` to {{ build.branch }}.
+      Build #{{ build.number }} finished in {{{ duration build.started_at build.finished_at }}} with a {{ build.status }} status.
+    username: drone
+    webhook_url: $$SLACK_URL

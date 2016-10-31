@@ -76,20 +76,6 @@ module OFX
       end
     end
 
-    class RoutingNumberMissing < Errors
-      def message
-        'You must specify the routing number for ' \
-        'your account in the options hash or ' \
-        'set OFX_URI as an environment.'
-      end
-    end
-
-    class AccountNumberMissing < Errors
-      def message
-        'You must specify the account number in the options hash.'
-      end
-    end
-
     class AccountTypeNotAvailable < Errors
       def message
         "The account type #{@account_type} is not available. " \

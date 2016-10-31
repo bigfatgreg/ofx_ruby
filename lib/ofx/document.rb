@@ -7,7 +7,15 @@ module OFX
     def initialize(options = {})
       @start = options[:start] || (Date.today - 30)
       @end = options[:end] || Date.today
-      load_env(options)
+      @uri = options[:uri]
+      @user = options[:user]
+      @password = options[:password]
+      @routing = options[:routing]
+      @account = options[:account]
+      @fi_org = options[:fi_org]
+      @fi_fid = options[:fi_fid]
+      @app_id = options[:app_id]
+      @app_ver = options[:app_ver]
       super
     end
     
@@ -37,13 +45,6 @@ module OFX
 
     protected
 
-    def load_env(options)
-      ENV.keys.grep(/OFX/).map do |k|
-        ivar = k[/_([A-z]+)/, 1].downcase.to_sym
-        instance_variable_set("@#{ivar}", options[ivar] || ENV[k])
-      end
-    end
-
     def dtclient
       Time.now.strftime('%Y%m%d%H%M%S')
     end
@@ -53,39 +54,39 @@ module OFX
     end
 
     def user
-      @user || (raise Errors::UserMissing)
+      @user || ENV['OFX_USER'] || (raise Errors::UserMissing)
     end
-    
+
     def password
-      @password || (raise Errors::PasswordMissing)
+      @password || ENV['OFX_PASSWORD'] || (raise Errors::PasswordMissing)
     end
-    
+
     def fi_org
-      @fi_org || (raise Errors::FiOrgMissing)
+      @fi_org || ENV['OFX_FI_ORG'] || (raise Errors::FiOrgMissing)
     end
-    
+
     def fi_fid
-      @fi_fid || (raise Errors::FiFidMissing)
+      @fi_fid || ENV['OFX_FI_FID'] || (raise Errors::FiFidMissing)
     end
-    
+
     def routing
-      @routing || (raise Errors::RoutingMissing)
+      @routing || ENV['OFX_ROUTING'] || (raise Errors::RoutingMissing)
     end
-    
+
     def account
-      @account || (raise Errors::AccountMissing)
+      @account || ENV['OFX_ACCOUNT'] || (raise Errors::AccountMissing)
     end
-    
+
     def app_id
-      @app_id || (raise Errors::AppIdMissing)
+      @app_id || ENV['OFX_APP_ID'] || (raise Errors::AppIdMissing)
     end
-    
+
     def app_ver
-      @app_ver || (raise Errors::AppVerMissing)
+      @app_ver || ENV['OFX_APP_VER'] || (raise Errors::AppVerMissing)
     end
-    
+
     def uri
-      @uri || (raise Errors::URIMissing)
+      @uri || ENV['OFX_URI'] || (raise Errors::URIMissing)
     end
 
     def http

@@ -5,8 +5,13 @@
 /Gemfile.lock
 /_yardoc/
 /coverage/
-/doc/
 /pkg/
 /spec/reports/
 /tmp/
 /ofx_ruby-0.0.*.gem
+# don't track coverage
+
+# unencrypted drone secrets
+/.drone.sec.yml
+
+*.DS_Store

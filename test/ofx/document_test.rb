@@ -11,7 +11,6 @@ class OFX::DocumentTest
       @inst = { org: 'fiorg', id: '32' }
       @app = { id: 'QBW', ver: '32' }
       @doc = OFX::Document.new(
-        name: :ofx,
         user: @user,
         password: @password,
         fi_org: @inst[:org],
@@ -42,11 +41,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if a user is not specified' do
-      assert_raises OFX::Errors::UserMissing do
+      e = assert_raises OFX::Errors::UserMissing do
         ENV['OFX_USER'] = nil
         @doc = OFX::Document.new
         @doc.send(:user)
       end
+      assert_match /set OFX_USER as an environment variable/, e.message
     end
 
     it 'has an ofx password' do
@@ -54,11 +54,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if a password is not specified' do
-      assert_raises OFX::Errors::PasswordMissing do
+      e = assert_raises OFX::Errors::PasswordMissing do
         ENV['OFX_PASSWORD'] = nil
         @doc = OFX::Document.new
         @doc.send(:password)
       end
+      assert_match /set OFX_PASSWORD as an environment variable/, e.message
     end
 
     it 'has an ofx fi_org' do
@@ -66,11 +67,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if fi_org is not specified' do
-    	assert_raises OFX::Errors::FiOrgMissing do
+    	e = assert_raises OFX::Errors::FiOrgMissing do
     		ENV['OFX_FI_ORG'] = nil
     		@doc = OFX::Document.new
     		@doc.send(:fi_org)
     	end
+      assert_match /set OFX_FI_ORG as an environment variable/, e.message
     end
 
     it 'has an ofx fi_fid' do
@@ -78,11 +80,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if fi_id is not specified' do
-      assert_raises OFX::Errors::FiFidMissing do
+      e = assert_raises OFX::Errors::FiFidMissing do
         ENV['OFX_FI_FID'] = nil
         @doc = OFX::Document.new
         @doc.send(:fi_fid)
       end
+      assert_match /set OFX_FI_FID as an environment variable/, e.message
     end
 
     it 'has an ofx routing' do
@@ -90,11 +93,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if routing is not specified' do
-      assert_raises OFX::Errors::RoutingMissing do
+      e = assert_raises OFX::Errors::RoutingMissing do
         ENV['OFX_ROUTING'] = nil
         @doc = OFX::Document.new
         @doc.send(:routing)
       end
+      assert_match /set OFX_ROUTING as an environment variable/, e.message
     end
 
     it 'has an ofx account' do
@@ -102,11 +106,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if account is not specified' do
-      assert_raises OFX::Errors::AccountMissing do
+      e = assert_raises OFX::Errors::AccountMissing do
         ENV['OFX_ACCOUNT'] = nil
         @doc = OFX::Document.new
         @doc.send(:account)
       end
+      assert_match /set OFX_ACCOUNT as an environment variable/, e.message
     end
 
     it 'has an app id' do
@@ -114,11 +119,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if app id is not specified' do
-      assert_raises OFX::Errors::AppIdMissing do
+      e = assert_raises OFX::Errors::AppIdMissing do
         ENV['OFX_APP_ID'] = nil
         @doc = OFX::Document.new
         @doc.send(:app_id)
       end
+      assert_match /set OFX_APP_ID as an environment variable/, e.message
     end
 
     it 'has an app ver' do
@@ -126,11 +132,12 @@ class OFX::DocumentTest
     end
 
     it 'raises an error if app ver is not specified' do
-      assert_raises OFX::Errors::AppVerMissing do
+      e = assert_raises OFX::Errors::AppVerMissing do
         ENV['OFX_APP_VER'] = nil
         @doc = OFX::Document.new
         @doc.send(:app_ver)
       end
+      assert_match /set OFX_APP_VER as an environment variable/, e.message
     end
 
     it 'produces an ofx element group' do

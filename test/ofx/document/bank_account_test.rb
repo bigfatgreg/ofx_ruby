@@ -25,13 +25,13 @@ class OFX::BankAccountTest
     end
 
     it 'raises an error if the routing number is not supplied' do
-      assert_raises OFX::Errors::RoutingNumberMissing do
+      assert_raises OFX::Errors::RoutingMissing do
         @bank_account = OFX::Document::BankAccount.new
       end
     end
 
     it 'raises an error if the account number is not supplied' do
-      assert_raises OFX::Errors::AccountNumberMissing do
+      assert_raises OFX::Errors::AccountMissing do
         @bank_account = OFX::Document::BankAccount.new(routing: @routing)
       end
     end
@@ -45,14 +45,24 @@ class OFX::BankAccountTest
       assert_equal 'CHECKING', @bank_account.accttype
     end
 
+    it 'can initialize with an account type' do
+      @bank_account = OFX::Document::BankAccount.new(
+        routing: @routing,
+        account: @account,
+        type: :money_market
+      )
+      assert_equal 'MONEYMRKT', @bank_account.accttype
+    end
+
     it 'raises an error if the account type is not available' do
-      assert_raises OFX::Errors::AccountTypeNotAvailable do
+      e = assert_raises OFX::Errors::AccountTypeNotAvailable do
         @bank_account = OFX::Document::BankAccount.new(
           routing: @routing,
           account: @account,
           type: :sherbet
         )
       end
+      assert_match /choose :savings, :money_market, :credit_line/, e.message
     end
 
     it 'produces a bank account aggregate' do

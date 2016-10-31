@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'ofx'
+require 'ofx/version'
 
 Gem::Specification.new do |g|
   g.name          = "ofx_ruby"
@@ -22,6 +22,8 @@ Gem::Specification.new do |g|
   g.add_development_dependency "guard-minitest", "~> 2.4.5"
   g.add_development_dependency "dotenv", "~> 2.1.1"
   g.add_development_dependency "byebug", "~> 9.0.5"
+  g.add_development_dependency "codeclimate-test-reporter", "~> 0.4.8"
+  g.add_development_dependency "simplecov"
 
   g.required_ruby_version = ">= 2.3"
   g.add_dependency "ox", "~> 2.4"
