@@ -62,7 +62,7 @@ class OFX::BankAccountTest
           type: :sherbet
         )
       end
-      assert_match /choose :savings, :money_market, :credit_line/ , e.message
+      assert_match(/choose :savings, :money_market, :credit_line/ , e.message)
     end
 
     it 'produces a bank account aggregate' do

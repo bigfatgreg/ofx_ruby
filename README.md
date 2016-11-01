@@ -1,9 +1,9 @@
 [coin]:https://raw.githubusercontent.com/bigfatgreg/ofx_ruby/master/doc/img/coin.gif
 
-[![Code Climate](https://codeclimate.com/github/bigfatgreg/ofx_ruby/badges/gpa.svg)](https://codeclimate.com/github/bigfatgreg/ofx_ruby)
-[![Issue Count](https://codeclimate.com/github/bigfatgreg/ofx_ruby/badges/issue_count.svg)](https://codeclimate.com/github/bigfatgreg/ofx_ruby)
-[![Build Status](https://drone.graveflex.com/api/badges/bigfatgreg/ofx_ruby/status.svg)](https://drone.graveflex.com/bigfatgreg/ofx_ruby)
+[![Code Climate](https://codeclimate.com/repos/5817e08271a9496d910040e2/badges/aa4aa26c5907d13625de/gpa.svg)](https://codeclimate.com/repos/5817e08271a9496d910040e2/feed)
+[![Issue Count](https://codeclimate.com/repos/5817e08271a9496d910040e2/badges/aa4aa26c5907d13625de/issue_count.svg)](https://codeclimate.com/repos/5817e08271a9496d910040e2/feed)
 [![Test Coverage](https://codeclimate.com/repos/5817e08271a9496d910040e2/badges/aa4aa26c5907d13625de/coverage.svg)](https://codeclimate.com/repos/5817e08271a9496d910040e2/coverage)
+[![Build Status](https://drone.graveflex.com/api/badges/bigfatgreg/ofx_ruby/status.svg)](https://drone.graveflex.com/bigfatgreg/ofx_ruby)
 
 &nbsp;&nbsp;
 
