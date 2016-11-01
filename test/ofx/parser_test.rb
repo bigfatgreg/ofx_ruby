@@ -4,7 +4,26 @@ require 'test_helper'
 module OFX::ParserTest
   describe OFX::Parser do
     before do
-      @doc = OFX::Document.new
+      @user = 'ofxuser'
+      @password = 'password'
+      @routing = 930291303
+      @account = 48320949
+      @inst = { org: 'fiorg', id: '32' }
+      @app = { id: 'QBW', ver: '32' }
+
+      @doc = OFX::Document.new(
+        uri: "http://ofx.ofx",
+        user: @user,
+        password: @password,
+        fi_org: @inst[:org],
+        fi_fid: @inst[:id],
+        routing: @routing,
+        account: @account,
+        app_id: @app[:id],
+        app_ver: @app[:ver],
+        start: Date.new(2015, 12, 28),
+        end: Date.new(2016, 1, 28)
+      )
       Excon.stub({}, body: fake_ofx_response)
       @request = Excon.new(
         @doc.send(:uri), 
