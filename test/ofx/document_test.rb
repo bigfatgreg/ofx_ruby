@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+2# frozen_string_literal: true
 require 'test_helper'
 
 class OFX::DocumentTest
@@ -46,7 +46,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:user)
       end
-      assert_match /set OFX_USER as an environment variable/, e.message
+      assert_match(/set OFX_USER as an environment variable/, e.message)
     end
 
     it 'has an ofx password' do
@@ -59,7 +59,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:password)
       end
-      assert_match /set OFX_PASSWORD as an environment variable/, e.message
+      assert_match(/set OFX_PASSWORD as an environment variable/, e.message)
     end
 
     it 'has an ofx fi_org' do
@@ -72,7 +72,7 @@ class OFX::DocumentTest
     		@doc = OFX::Document.new
     		@doc.send(:fi_org)
     	end
-      assert_match /set OFX_FI_ORG as an environment variable/, e.message
+      assert_match(/set OFX_FI_ORG as an environment variable/, e.message)
     end
 
     it 'has an ofx fi_fid' do
@@ -85,7 +85,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:fi_fid)
       end
-      assert_match /set OFX_FI_FID as an environment variable/, e.message
+      assert_match(/set OFX_FI_FID as an environment variable/, e.message)
     end
 
     it 'has an ofx routing' do
@@ -98,7 +98,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:routing)
       end
-      assert_match /set OFX_ROUTING as an environment variable/, e.message
+      assert_match(/set OFX_ROUTING as an environment variable/, e.message)
     end
 
     it 'has an ofx account' do
@@ -111,7 +111,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:account)
       end
-      assert_match /set OFX_ACCOUNT as an environment variable/, e.message
+      assert_match(/set OFX_ACCOUNT as an environment variable/, e.message)
     end
 
     it 'has an app id' do
@@ -124,7 +124,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:app_id)
       end
-      assert_match /set OFX_APP_ID as an environment variable/, e.message
+      assert_match(/set OFX_APP_ID as an environment variable/, e.message)
     end
 
     it 'has an app ver' do
@@ -137,7 +137,7 @@ class OFX::DocumentTest
         @doc = OFX::Document.new
         @doc.send(:app_ver)
       end
-      assert_match /set OFX_APP_VER as an environment variable/, e.message
+      assert_match(/set OFX_APP_VER as an environment variable/, e.message)
     end
 
     it 'produces an ofx element group' do

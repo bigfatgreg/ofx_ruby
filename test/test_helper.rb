@@ -11,7 +11,9 @@ require 'dotenv'
 require 'excon'
 require 'byebug'
 require 'minitest/autorun'
+require "codeclimate-test-reporter"
 
+CodeClimate::TestReporter.start
 
 Dotenv.load
 

@@ -22,7 +22,7 @@ module OFX::HTTPTest
         @http = OFX::HTTP.new
         @http.uri
       end
-      assert_match /You must specify the uri/, e.message
+      assert_match(/You must specify the uri/, e.message)
     end
 
     it 'it has a default http header' do
